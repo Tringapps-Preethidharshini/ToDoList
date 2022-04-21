@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ToDo List</title>
+</head>
+<style>
+    .addtaskImg{
+        width: 30px;
+    }
+    .container{
+        margin: 200px auto;
+        text-align: center;
+        background: white;
+        width: 50%;
+        border: 2px solid;
+    }
+    .addTaskContainer{
+        background: rgb(214, 106, 133);
+        height: 50px;       
+    }
+    #taskList{
+        text-align: left;
+        background: rgb(194, 101, 223);
+        color: rgb(12, 12, 12);
+        font-size: 22px;
+        padding: 0 50px;
+    }
+    .taskContainer{
+        padding: 10px;
+    }
+    .buttonContainer{
+        padding: 20px;
+        background: rgb(128, 247, 153);
+        height: 50px;
+    }
+</style>
+<body>
+
+<div class="container">
+
+    <div class="addTaskContainer">
+        <input type="text" id="taskInput" placeholder="Type Task Here"/>
+        <input type="button" value="+" onclick="addTask()" />
+    </div>
+
+    <div id="taskList">
+    </div>
+
+    <div class="buttonContainer"> 
+        <button onclick="removeAll()" >Remove All</button>
+        <button onclick="removeSelected()">Remove Selected Task</button>
+        <button >Save</button>
+    </div>
+
+</div>
+<script>
+
+    function removeSelected(){
+        let selectedTasks = document.querySelectorAll('input[name=task]'); 
+        let checkedTask = [].filter.call( selectedTasks, function( el ) {
+            return el.checked
+        });
+        if(checkedTask.length > 0){
+            for(let i=0; i < checkedTask.length; i++){
+                let selectedTaskID = checkedTask[i].getAttribute('id');
+                document.querySelector('div#'+selectedTaskID).remove();
+            }
+        }
+    }
+    
+    function removeAll(){
+        let allTask = document.querySelectorAll('input[name=task]');
+        if(allTask.length > 0){
+            for(let i=0; i < allTask.length; i++){
+                let taskID = allTask[i].getAttribute('id');
+                document.querySelector('div#'+taskID).remove();
+            }
+        } 
+    }
+
+    function addTask(){
+        let task = document.getElementById('taskInput').value;
+        if(task != ''){
+            var taskDiv = document.createElement('div');
+            taskDiv.id = task;
+            taskDiv.classList.add('taskContainer');
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = task;
+            checkbox.name = 'task';
+            checkbox.value = task;
+        
+            var label = document.createElement('label')
+            label.htmlFor = task;
+            label.appendChild(document.createTextNode(task));
+        
+            var br = document.createElement('br');
+        
+            var container = document.getElementById('taskList');
+            taskDiv.appendChild(checkbox);
+            taskDiv.appendChild(label);
+            taskDiv.appendChild(br);
+            container.appendChild(taskDiv);
+            document.getElementById('taskInput').value = '';
+        }
+        
+    }
+</script>
+</body>
+
+</html>
+

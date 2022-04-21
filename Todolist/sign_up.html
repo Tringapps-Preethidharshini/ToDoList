@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>Sign Up</title>
+     </head>
+    <body bgcolor="blue" >
+<center>
+<h1>SIGN UP</h1><br><br>
+<table>
+    <tr>
+        <td>
+           <b>Enter your Name:</b>
+        </td>
+         <td>
+            <input type="text" placeholder="enter your name" name="uname" id="username"><br><br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Enter your email address:</b>
+        </td>
+         <td>
+            <input type="email" placeholder="abcd.@gmail.com" mail="uemail" id="usermail" ><br><br>
+        </td>
+    </tr>
+    <tr>
+         <td>
+            <b>Enter Password:</b>
+        </td>
+         <td>
+            <input type="password" placeholder="*****" password="upassword" id="userpassword"><br><br>
+        </td>
+    </tr>
+</table>
+<a href ="todolist.html"><input type="button" value="Sign Up"></a><br>
+</center>
+<script>
+    let usname = document.getElementById("username").value;
+    let usemail = document.getElementById("useremail").value;
+    let uspassword = document.getElementById("userpassword").value;
+
+    if(localStorage['store']==undefined)
+    {
+        let store ={
+            users:[]
+        }
+        store.users.push({
+            "username": usname,
+            "usermail":usmail,
+            "userpassword":uspassword,
+            todolist:[]
+        });
+        localStorage.setItem("store",JSON.stringify(store));
+        document.sign_up.actiom="Sign_up.html";
+    }
+    else
+    {
+        var store=JSON.parse(localStorage.getItem("store"));
+        if(store.users.find(element=>element.username==usname && element.usermail==usmail && element.userpassword==uspassword)){
+            alert("User already exists");
+            document.sign_up.action="Sign_up.html";
+
+        }
+        else{
+            store.user.push({
+                "username":usname,
+                "usermail":usmail,
+                "userpassword":uspassword,
+                todolist:[]
+
+            });
+       localStorage.setItem("store",JSON.stringify(store));
+        }
+       console.log(JSON.parse(localStorage.getItem("store")));
+    }
+
+</script>
+</body>
+</html>
